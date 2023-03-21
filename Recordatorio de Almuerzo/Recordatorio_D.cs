@@ -17,21 +17,31 @@ namespace Recordatorio_de_Almuerzo
         #endregion
 
         #region Consultas
-        public DataTable ListadoRecordatorios(int Estado)
+        public DataTable ListadoRecordatorios(bool TodosRecordatorios, DateTime FechaInicial, DateTime FechaFinal)
         {
             DataTable tabla = new DataTable();
             tabla.Clear();
             comando.Connection = conexion.AbrirConexion();
             comando.CommandType = CommandType.Text;
-            comando.CommandText = $@"SELECT 
-                                     Id_Rol, 
-                                     Nombre_Rol, 
-                                     Fecha_Registro, 
-                                     REPLACE(REPLACE(Estado, '1', 'Activo'), '0', 'Inactivo') AS Estado FROM Roles ";
+            comando.CommandText = $@"SELECT
+                                    Id_Recordatorio,
+                                    FORMAT(Fecha, 'dd/MM/yyyy') AS Fecha,
+                                    FORMAT(Fecha, 'hh:mm tt') AS Hora,
+                                    CASE DATEPART(dw, Fecha)
+	                                    WHEN 1 THEN 'Domingo'
+	                                    WHEN 2 THEN 'Lunes'
+	                                    WHEN 3 THEN 'Martes'
+	                                    WHEN 4 THEN 'Miércoles'
+	                                    WHEN 5 THEN 'Jueves'
+	                                    WHEN 6 THEN 'Viernes'
+	                                    WHEN 7 THEN 'Sábado'
+                                    END AS Dia,
+                                    REPLACE(REPLACE(Recordatorio , '1','SI'), '0','NO') AS Recordatorio
+                                    FROM Recordatorios ";
 
-            if (Estado > 0)
+            if (TodosRecordatorios == false)
             {
-                comando.CommandText += $@"WHERE Estado = {Estado}";
+                comando.CommandText += $@"WHERE Fecha BETWEEN '{string.Format("{0:yyyy-MM-dd}", FechaInicial)} 00:00:00' AND '{string.Format("{0:yyyy-MM-dd}", FechaFinal)} 23:59:59'";
             }
             leer = comando.ExecuteReader();
             tabla.Load(leer);
