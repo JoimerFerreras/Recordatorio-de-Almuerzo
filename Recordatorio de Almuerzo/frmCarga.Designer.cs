@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmCarga));
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.recordatorioDeAlmuerzosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -39,6 +40,7 @@
             this.cerrarAplicaciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button1 = new System.Windows.Forms.Button();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.notifyIconMenuContextual = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -112,8 +114,16 @@
             // 
             // notifyIcon1
             // 
+            this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
             this.notifyIcon1.Text = "notifyIcon1";
             this.notifyIcon1.Visible = true;
+            // 
+            // notifyIconMenuContextual
+            // 
+            this.notifyIconMenuContextual.ContextMenuStrip = this.contextMenuStrip1;
+            this.notifyIconMenuContextual.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIconMenuContextual.Icon")));
+            this.notifyIconMenuContextual.Text = "Recordatorio de Almuerzos";
+            this.notifyIconMenuContextual.Visible = true;
             // 
             // frmCarga
             // 
@@ -145,5 +155,6 @@
         private System.Windows.Forms.ToolStripMenuItem cerrarAplicaciónToolStripMenuItem;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
+        private System.Windows.Forms.NotifyIcon notifyIconMenuContextual;
     }
 }

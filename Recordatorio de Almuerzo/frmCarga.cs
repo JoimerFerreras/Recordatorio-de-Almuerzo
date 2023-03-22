@@ -23,12 +23,14 @@ namespace Recordatorio_de_Almuerzo
 
         private void frmCarga_Load(object sender, EventArgs e)
         {
-//            CheckForIllegalCrossThreadCalls = false;
+            //            CheckForIllegalCrossThreadCalls = false;
 
-         //   this.Visible = false;
-      //      Util.dtRecordatoriosPendientes = recordatorioObj.ListadoRecordatoriosPendientes();
+            //   this.Visible = false;
+            //      Util.dtRecordatoriosPendientes = recordatorioObj.ListadoRecordatoriosPendientes();
 
-          //  timer1.Enabled = true;
+            //  timer1.Enabled = true;
+
+           
         }
 
         private void AbrirFormPrincipal()
@@ -64,9 +66,11 @@ namespace Recordatorio_de_Almuerzo
 
         private void button1_Click(object sender, EventArgs e)
         {
+            notifyIcon1.BalloonTipIcon = ToolTipIcon.Info;
             notifyIcon1.BalloonTipTitle = "fasfasf";
             notifyIcon1.BalloonTipText = "OK";
             notifyIcon1.ShowBalloonTip(1000);
+            
         }
     }
 }
