@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
 
 namespace Recordatorio_de_Almuerzo
 {
@@ -96,6 +97,8 @@ namespace Recordatorio_de_Almuerzo
                     recordatorioObj.Editar(int.Parse(Id_Registro), FechaFormateada, RecordatorioFormat);
                 }
                 LimpiarCampos();
+                ConsutarRecordatorios(2, chkTodosRecordatorios.Checked, DateTime.Now, DateTime.Now);
+
             }
             catch (Exception ex)
             {
@@ -107,8 +110,18 @@ namespace Recordatorio_de_Almuerzo
         {
             try
             {
-                recordatorioObj.Eliminar(int.Parse(Id_Registro));
-                LimpiarCampos();
+                if (Id_Registro == "0")
+                {
+                    recordatorioObj.Eliminar(int.Parse(Id_Registro));
+                    LimpiarCampos();
+                    MessageBox.Show("El recordatorio ha sido eliminado.", "Recordatorio de Almuerzos", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    ConsutarRecordatorios(2, chkTodosRecordatorios.Checked, DateTime.Now, DateTime.Now);
+                }
+                else
+                {
+                    MessageBox.Show("No hay recordatorio seleccionado para eliminar.", "Recordatorio de Almuerzos", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
             catch (Exception ex)
             {
@@ -149,15 +162,18 @@ namespace Recordatorio_de_Almuerzo
                 dt.Columns.Add("Value");
                 dt.Columns.Add("Minuto");
 
-                for (int i = 0; i < 60; i++)
+                int Multiplicador = 0;
+                for (int i = 0; i < 12; i++)
                 {
-                    if (i >= 0 && i < 10)
+                    if (i >= 0 && i <= 1)
                     {
-                        dt.Rows.Add("0" + i.ToString(), "0" + i.ToString());
+                        Multiplicador = i * 5;
+                        dt.Rows.Add("0" + Multiplicador.ToString(), "0" + Multiplicador.ToString());
                     }
                     else
                     {
-                        dt.Rows.Add(i, i.ToString());
+                        Multiplicador = i * 5;
+                        dt.Rows.Add(Multiplicador, Multiplicador);
                     }
                 }
 
@@ -188,7 +204,6 @@ namespace Recordatorio_de_Almuerzo
             EditarRegistro = false;
             Id_Registro = "0";
             txtId.Text = "(Nuevo)";
-            dtpFecha.Value = DateTime.Now;
             chkRecordatorio.Checked = true;
         }
 
@@ -223,16 +238,16 @@ namespace Recordatorio_de_Almuerzo
                     EditarRegistro = true;
                     Id_Registro = dgvDatos.CurrentRow.Cells[0].Value.ToString();
                     txtId.Text = dgvDatos.CurrentRow.Cells[0].Value.ToString();
-                    txtNombreDia.Text = dgvDatos.CurrentRow.Cells[1].Value.ToString();
+                 //   txtNombreDia.Text = dgvDatos.CurrentRow.Cells[1].Value.ToString();
                     dtpFecha.Value = DateTime.Parse(string.Format("{0:dd/MM/yyyy}", dgvDatos.CurrentRow.Cells[2].Value.ToString()));
                     cmbHora.SelectedValue = string.Format("{0:hh}", DateTime.Parse(string.Format("{0:hh}", dgvDatos.CurrentRow.Cells[3].Value.ToString())));
-                    cmbMinuto.SelectedValue = string.Format("{0:hh}", DateTime.Parse(string.Format("{0:mm}", dgvDatos.CurrentRow.Cells[3].Value.ToString())));
+                    cmbMinuto.SelectedValue = string.Format("{0:mm}", DateTime.Parse(string.Format("{0:mm}", dgvDatos.CurrentRow.Cells[3].Value.ToString())));
 
-                    if (string.Format("{0:tt}", DateTime.Parse(string.Format("{0:hh}", dgvDatos.CurrentRow.Cells[3].Value.ToString()))) == "p.m.")
+                    if (string.Format("{0:tt}", DateTime.Parse(string.Format("{0:tt}", dgvDatos.CurrentRow.Cells[3].Value.ToString()))) == "p.m.")
                     {
                         cmbFormatoHora.SelectedValue = "PM";
                     }
-                    else if (string.Format("{0:tt}", DateTime.Parse(string.Format("{0:hh}", dgvDatos.CurrentRow.Cells[3].Value.ToString()))) == "a.m.")
+                    else if (string.Format("{0:tt}", DateTime.Parse(string.Format("{0:tt}", dgvDatos.CurrentRow.Cells[3].Value.ToString()))) == "a.m.")
                     {
                         cmbFormatoHora.SelectedValue = "AM";
                     }
@@ -254,6 +269,38 @@ namespace Recordatorio_de_Almuerzo
             catch (Exception ex)
             {
                 MessageBox.Show("Ha ocurrido un error: \n\n" + ex.Message, "Recordatorio de Almuerzos - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void AsignarNombreDia()
+        {
+            DayOfWeek diaSemana = dtpFecha.Value.DayOfWeek;
+
+            switch (diaSemana)
+            {
+                case DayOfWeek.Monday:
+                    txtNombreDia.Text = "Lunes";
+                    break;
+                case DayOfWeek.Tuesday:
+                    txtNombreDia.Text = "Martes";
+                    break;
+                case DayOfWeek.Wednesday:
+                    txtNombreDia.Text = "Miercoles";
+                    break;
+                case DayOfWeek.Thursday:
+                    txtNombreDia.Text = "Jueves";
+                    break;
+                case DayOfWeek.Friday:
+                    txtNombreDia.Text = "Viernes";
+                    break;
+                case DayOfWeek.Saturday:
+                    txtNombreDia.Text = "Sábado";
+                    break;
+                case DayOfWeek.Sunday:
+                    txtNombreDia.Text = "Domingo";
+                    break;
+                default:
+                    break;
             }
         }
         #endregion
@@ -286,7 +333,19 @@ namespace Recordatorio_de_Almuerzo
             dgvDatos.Columns["Recordatorio"].Width = 150;
 
             //CargarConfiguracion();
+            LimpiarCampos();
+            cmbFormatoHora.SelectedValue = "PM";
+
+            DateTime today = DateTime.Now;
+            int delta = DayOfWeek.Sunday - today.DayOfWeek;
+            DateTime FechaInicial = today.AddDays(delta);
+            DateTime FechaFinal = FechaInicial.AddDays(6);
+
+            dtpFechaInicial.Value = FechaInicial;
+            dtpFechaFinal.Value = FechaFinal;
+
             ConsutarRecordatorios(2, chkTodosRecordatorios.Checked, DateTime.Now, DateTime.Now);
+            AsignarNombreDia();
         }
 
         private void btnGuardarConfiguracion_Click(object sender, EventArgs e)
@@ -348,6 +407,37 @@ namespace Recordatorio_de_Almuerzo
                 }
                 e.CellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             }
+
+
+            // Verificar si la fila actual es de tipo DataGridViewRow para evitar errores
+            if (e.RowIndex >= 0 && dgv.Rows[e.RowIndex].DataBoundItem != null && dgv.Rows[e.RowIndex].DataBoundItem is DataRowView)
+            {
+                DataRowView row = (DataRowView)dgv.Rows[e.RowIndex].DataBoundItem;
+
+                // Obtener las columnas de fecha y hora
+                DateTime fecha = DateTime.Parse(row["Fecha"].ToString() + " " +  row["Hora"].ToString());
+
+                // Verificar si la fecha y hora de la fila es menor que la fecha y hora actual
+                if (fecha < DateTime.Now)
+                {
+                    // Establecer el color de fondo de la fila en rojo
+                    dgv.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.LightGray;
+                    dgv.Rows[e.RowIndex].DefaultCellStyle.SelectionBackColor = Color.Silver;
+
+                    if (dgv.Columns[e.ColumnIndex].Name == "Recordatorio")  //Si es la columna a evaluar
+                    {
+                        e.CellStyle.BackColor = Color.LightGray;
+                        e.CellStyle.SelectionBackColor = Color.Silver;
+                    }
+                }
+
+                else if ((string.Format("{0:dd/MM/yyyy}", fecha) == string.Format("{0:dd/MM/yyyy}", DateTime.Now)) && (DateTime.Parse(string.Format("{0:hh:mm}", fecha)) <= DateTime.Parse(string.Format("{0:hh:mm}", DateTime.Now))))
+                {
+                    dgv.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.DodgerBlue;
+                    dgv.Rows[e.RowIndex].DefaultCellStyle.SelectionBackColor = Color.DeepSkyBlue;
+                }
+            }
+
         }
 
         private void btnFiltrarHoy_Click(object sender, EventArgs e)
@@ -367,7 +457,7 @@ namespace Recordatorio_de_Almuerzo
 
         private void btnFiltrarBusqueda_Click(object sender, EventArgs e)
         {
-            ConsutarRecordatorios(0, chkTodosRecordatorios.Checked, DateTime.Now, DateTime.Now);
+            ConsutarRecordatorios(0, chkTodosRecordatorios.Checked, dtpFechaInicial.Value, dtpFechaFinal.Value);
         }
 
         #endregion
@@ -385,6 +475,16 @@ namespace Recordatorio_de_Almuerzo
         private void btnEliminar_Click(object sender, EventArgs e)
         {
             Eliminar();
+        }
+
+        private void dtpFecha_ValueChanged(object sender, EventArgs e)
+        {
+            AsignarNombreDia();
+        }
+
+        private void btnSumarUnDia_Click(object sender, EventArgs e)
+        {
+            dtpFecha.Value = dtpFecha.Value.AddDays(1);
         }
     }
 }

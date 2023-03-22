@@ -25,6 +25,7 @@ namespace Recordatorio_de_Almuerzo
             comando.CommandType = CommandType.Text;
             comando.CommandText = $@"SELECT
                                     Id_Recordatorio,
+                                    Fecha AS Fecha_Order, 
                                     FORMAT(Fecha, 'dd/MM/yyyy') AS Fecha,
                                     FORMAT(Fecha, 'hh:mm tt') AS Hora,
                                     CASE DATEPART(dw, Fecha)
@@ -41,8 +42,11 @@ namespace Recordatorio_de_Almuerzo
 
             if (RangoFecha == true)
             {
-                comando.CommandText += $@"WHERE Fecha BETWEEN '{string.Format("{0:yyyy-MM-dd}", FechaInicial)} 00:00:00' AND '{string.Format("{0:yyyy-MM-dd}", FechaFinal)} 23:59:59'";
+                comando.CommandText += $@"WHERE Fecha BETWEEN '{string.Format("{0:yyyy-MM-dd}", FechaInicial)} 00:00:00' AND '{string.Format("{0:yyyy-MM-dd}", FechaFinal)} 23:59:59' ";
             }
+
+            comando.CommandText += $@"ORDER BY Fecha_Order ASC";
+
             leer = comando.ExecuteReader();
             tabla.Load(leer);
             comando.Parameters.Clear();
@@ -80,7 +84,7 @@ namespace Recordatorio_de_Almuerzo
         {
             comando.Connection = conexion.AbrirConexion();
             comando.CommandType = CommandType.Text;
-            comando.CommandText = $@"DELETE FROM Recordatorios WHERE Id_Rol = {Id_Registro}";
+            comando.CommandText = $@"DELETE FROM Recordatorios WHERE Id_Recordatorio = {Id_Registro}";
             leer = comando.ExecuteReader();
             comando.Parameters.Clear();
             conexion.CerrarConexion();
