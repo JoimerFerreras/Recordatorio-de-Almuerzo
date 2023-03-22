@@ -53,6 +53,20 @@ namespace Recordatorio_de_Almuerzo
             conexion.CerrarConexion();
             return tabla;
         }
+
+        public DataTable ListadoRecordatoriosPendientes()
+        {
+            DataTable tabla = new DataTable();
+            tabla.Clear();
+            comando.Connection = conexion.AbrirConexion();
+            comando.CommandType = CommandType.Text;
+            comando.CommandText = $@"SELECT * FROM Recordatorios WHERE (Fecha BETWEEN '{string.Format("{0:yyyy-MM-dd}", DateTime.Now)} 00:00:00' AND '{string.Format("{0:yyyy-MM-dd}", DateTime.Now)} 23:59:59') AND Confirmacion = 0 AND Recordatorio = 1";
+            leer = comando.ExecuteReader();
+            tabla.Load(leer);
+            comando.Parameters.Clear();
+            conexion.CerrarConexion();
+            return tabla;
+        }
         #endregion
 
 
@@ -89,7 +103,17 @@ namespace Recordatorio_de_Almuerzo
             comando.Parameters.Clear();
             conexion.CerrarConexion();
         }
+        
+        public void ConfirmarRecordatorio(int Id_Recordatorio)
+        {
+            comando.Connection = conexion.AbrirConexion();
+            comando.CommandType = CommandType.Text;
+            comando.CommandText = $@"UPDATE Recordatorios SET Confirmacion = 1 WHERE Id_Recordatorio = {Id_Recordatorio};";
+            leer = comando.ExecuteReader();
+            comando.Parameters.Clear();
+            conexion.CerrarConexion();
+        }
         #endregion
-       
+
     }
 }

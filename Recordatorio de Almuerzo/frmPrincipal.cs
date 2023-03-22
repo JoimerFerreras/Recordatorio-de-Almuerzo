@@ -28,7 +28,7 @@ namespace Recordatorio_de_Almuerzo
         bool Edicion = false;
         bool EditarRegistro = false;
         string Id_Registro = "0";
-
+        ToolTip ToolTipEdicion = new ToolTip();
         #endregion
 
 
@@ -263,9 +263,7 @@ namespace Recordatorio_de_Almuerzo
                         chkRecordatorio.Checked = false;
                     }
 
-                    Edicion = true;
-                    btnHabilitarEdicion.Text = "◀";
-                    this.Size = new Size(1229, 769);
+                    HabilitarEdicion();
                 }
             }
             catch (Exception ex)
@@ -304,6 +302,22 @@ namespace Recordatorio_de_Almuerzo
                 default:
                     break;
             }
+        }
+
+        private void HabilitarEdicion()
+        {
+            Edicion = true;
+            btnHabilitarEdicion.Text = "◀";
+            this.Size = new Size(1229, 769);
+            
+            ToolTipEdicion.SetToolTip(btnHabilitarEdicion, "Ocultar");
+        }
+        private void DeshabilitarEdicion()
+        {
+            Edicion = false;
+            btnHabilitarEdicion.Text = "▶";
+            this.Size = new Size(939, 769);
+            ToolTipEdicion.SetToolTip(btnHabilitarEdicion, "Editar recordatorio");
         }
         #endregion
 
@@ -348,6 +362,8 @@ namespace Recordatorio_de_Almuerzo
 
             ConsutarRecordatorios(2, chkTodosRecordatorios.Checked, DateTime.Now, DateTime.Now);
             AsignarNombreDia();
+
+            DeshabilitarEdicion();
         }
 
         private void btnGuardarConfiguracion_Click(object sender, EventArgs e)
@@ -364,15 +380,11 @@ namespace Recordatorio_de_Almuerzo
         {
             if (Edicion == false)
             {
-                Edicion = true;
-                btnHabilitarEdicion.Text = "◀";
-                this.Size = new Size(1229, 769);
+                HabilitarEdicion();
             }
             else
             {
-                Edicion = false;
-                btnHabilitarEdicion.Text = "▶";
-                this.Size = new Size(939, 769);
+                DeshabilitarEdicion();
             }
         }
 
@@ -432,7 +444,7 @@ namespace Recordatorio_de_Almuerzo
                     }
                 }
 
-                else if ((string.Format("{0:dd/MM/yyyy}", fecha) == string.Format("{0:dd/MM/yyyy}", DateTime.Now)) && (DateTime.Parse(string.Format("{0:hh:mm}", fecha)) <= DateTime.Parse(string.Format("{0:hh:mm}", DateTime.Now))))
+                else if ((string.Format("{0:dd/MM/yyyy}", fecha) == string.Format("{0:dd/MM/yyyy}", DateTime.Now)) && (DateTime.Parse(string.Format("{0:hh:mm}", fecha)) >= DateTime.Parse(string.Format("{0:hh:mm}", DateTime.Now))))
                 {
                     dgv.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.DodgerBlue;
                     dgv.Rows[e.RowIndex].DefaultCellStyle.SelectionBackColor = Color.DeepSkyBlue;
