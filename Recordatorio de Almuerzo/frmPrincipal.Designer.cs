@@ -38,11 +38,11 @@
             this.btnContactos = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.txtCorreo = new System.Windows.Forms.TextBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.chkNotificacionCorreo = new System.Windows.Forms.CheckBox();
             this.label5 = new System.Windows.Forms.Label();
             this.btnRestaurarTodo = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
-            this.chkRecordatorioGeneral = new System.Windows.Forms.CheckBox();
+            this.chkNotificacionesNativas = new System.Windows.Forms.CheckBox();
             this.btnGuardarConfiguracion = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -69,14 +69,14 @@
             this.panel4 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.txtId = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtNombreDia = new System.Windows.Forms.TextBox();
             this.cmbMinuto = new System.Windows.Forms.ComboBox();
             this.cmbHora = new System.Windows.Forms.ComboBox();
             this.cmbFormatoHora = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.btnGuardar = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.chkRecordatorio = new System.Windows.Forms.CheckBox();
             this.dtpFecha = new System.Windows.Forms.DateTimePicker();
             this.btnEliminar = new System.Windows.Forms.Button();
             this.btnNuevo = new System.Windows.Forms.Button();
@@ -96,11 +96,11 @@
             this.panel1.Controls.Add(this.btnContactos);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.txtCorreo);
-            this.panel1.Controls.Add(this.checkBox1);
+            this.panel1.Controls.Add(this.chkNotificacionCorreo);
             this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.btnRestaurarTodo);
             this.panel1.Controls.Add(this.label2);
-            this.panel1.Controls.Add(this.chkRecordatorioGeneral);
+            this.panel1.Controls.Add(this.chkNotificacionesNativas);
             this.panel1.Controls.Add(this.btnGuardarConfiguracion);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(14, 14);
@@ -147,16 +147,16 @@
             this.txtCorreo.Size = new System.Drawing.Size(192, 21);
             this.txtCorreo.TabIndex = 7;
             // 
-            // checkBox1
+            // chkNotificacionCorreo
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(22, 209);
-            this.checkBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(61, 19);
-            this.checkBox1.TabIndex = 6;
-            this.checkBox1.Text = "Activar";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.chkNotificacionCorreo.AutoSize = true;
+            this.chkNotificacionCorreo.Location = new System.Drawing.Point(22, 209);
+            this.chkNotificacionCorreo.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.chkNotificacionCorreo.Name = "chkNotificacionCorreo";
+            this.chkNotificacionCorreo.Size = new System.Drawing.Size(61, 19);
+            this.chkNotificacionCorreo.TabIndex = 6;
+            this.chkNotificacionCorreo.Text = "Activar";
+            this.chkNotificacionCorreo.UseVisualStyleBackColor = true;
             // 
             // label5
             // 
@@ -191,16 +191,16 @@
             this.label2.TabIndex = 3;
             this.label2.Text = "Configuración";
             // 
-            // chkRecordatorioGeneral
+            // chkNotificacionesNativas
             // 
-            this.chkRecordatorioGeneral.AutoSize = true;
-            this.chkRecordatorioGeneral.Location = new System.Drawing.Point(22, 119);
-            this.chkRecordatorioGeneral.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.chkRecordatorioGeneral.Name = "chkRecordatorioGeneral";
-            this.chkRecordatorioGeneral.Size = new System.Drawing.Size(61, 19);
-            this.chkRecordatorioGeneral.TabIndex = 1;
-            this.chkRecordatorioGeneral.Text = "Activar";
-            this.chkRecordatorioGeneral.UseVisualStyleBackColor = true;
+            this.chkNotificacionesNativas.AutoSize = true;
+            this.chkNotificacionesNativas.Location = new System.Drawing.Point(22, 119);
+            this.chkNotificacionesNativas.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.chkNotificacionesNativas.Name = "chkNotificacionesNativas";
+            this.chkNotificacionesNativas.Size = new System.Drawing.Size(61, 19);
+            this.chkNotificacionesNativas.TabIndex = 1;
+            this.chkNotificacionesNativas.Text = "Activar";
+            this.chkNotificacionesNativas.UseVisualStyleBackColor = true;
             // 
             // btnGuardarConfiguracion
             // 
@@ -271,8 +271,9 @@
             this.btnFiltrarMes.Name = "btnFiltrarMes";
             this.btnFiltrarMes.Size = new System.Drawing.Size(147, 31);
             this.btnFiltrarMes.TabIndex = 18;
-            this.btnFiltrarMes.Text = "Este més";
+            this.btnFiltrarMes.Text = "Este mes";
             this.btnFiltrarMes.UseVisualStyleBackColor = true;
+            this.btnFiltrarMes.Click += new System.EventHandler(this.btnFiltrarMes_Click);
             // 
             // btnFiltrarSemana
             // 
@@ -284,6 +285,7 @@
             this.btnFiltrarSemana.TabIndex = 17;
             this.btnFiltrarSemana.Text = "Esta semana";
             this.btnFiltrarSemana.UseVisualStyleBackColor = true;
+            this.btnFiltrarSemana.Click += new System.EventHandler(this.btnFiltrarSemana_Click);
             // 
             // btnFiltrarBusqueda
             // 
@@ -295,6 +297,7 @@
             this.btnFiltrarBusqueda.TabIndex = 16;
             this.btnFiltrarBusqueda.Text = "Filtrar";
             this.btnFiltrarBusqueda.UseVisualStyleBackColor = true;
+            this.btnFiltrarBusqueda.Click += new System.EventHandler(this.btnFiltrarBusqueda_Click);
             // 
             // btnFiltrarHoy
             // 
@@ -306,6 +309,7 @@
             this.btnFiltrarHoy.TabIndex = 15;
             this.btnFiltrarHoy.Text = "Hoy";
             this.btnFiltrarHoy.UseVisualStyleBackColor = true;
+            this.btnFiltrarHoy.Click += new System.EventHandler(this.btnFiltrarHoy_Click);
             // 
             // label10
             // 
@@ -425,7 +429,7 @@
             dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.LightSteelBlue;
             dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
             this.dgvDatos.RowsDefaultCellStyle = dataGridViewCellStyle4;
-            this.dgvDatos.RowTemplate.Height = 50;
+            this.dgvDatos.RowTemplate.Height = 30;
             this.dgvDatos.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvDatos.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dgvDatos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -490,14 +494,14 @@
             this.panel3.Controls.Add(this.panel4);
             this.panel3.Controls.Add(this.label4);
             this.panel3.Controls.Add(this.txtId);
-            this.panel3.Controls.Add(this.textBox1);
+            this.panel3.Controls.Add(this.txtNombreDia);
             this.panel3.Controls.Add(this.cmbMinuto);
             this.panel3.Controls.Add(this.cmbHora);
             this.panel3.Controls.Add(this.cmbFormatoHora);
             this.panel3.Controls.Add(this.label6);
             this.panel3.Controls.Add(this.btnGuardar);
             this.panel3.Controls.Add(this.label7);
-            this.panel3.Controls.Add(this.checkBox2);
+            this.panel3.Controls.Add(this.chkRecordatorio);
             this.panel3.Controls.Add(this.dtpFecha);
             this.panel3.Controls.Add(this.btnEliminar);
             this.panel3.Controls.Add(this.btnNuevo);
@@ -533,17 +537,17 @@
             this.txtId.Size = new System.Drawing.Size(75, 21);
             this.txtId.TabIndex = 17;
             // 
-            // textBox1
+            // txtNombreDia
             // 
-            this.textBox1.Location = new System.Drawing.Point(41, 157);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(106, 21);
-            this.textBox1.TabIndex = 16;
+            this.txtNombreDia.Location = new System.Drawing.Point(41, 157);
+            this.txtNombreDia.Name = "txtNombreDia";
+            this.txtNombreDia.ReadOnly = true;
+            this.txtNombreDia.Size = new System.Drawing.Size(106, 21);
+            this.txtNombreDia.TabIndex = 16;
             // 
             // cmbMinuto
             // 
-            this.cmbMinuto.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.cmbMinuto.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
             this.cmbMinuto.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cmbMinuto.FormattingEnabled = true;
             this.cmbMinuto.Location = new System.Drawing.Point(101, 253);
@@ -553,7 +557,7 @@
             // 
             // cmbHora
             // 
-            this.cmbHora.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.cmbHora.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
             this.cmbHora.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cmbHora.FormattingEnabled = true;
             this.cmbHora.Location = new System.Drawing.Point(41, 253);
@@ -590,6 +594,7 @@
             this.btnGuardar.TabIndex = 11;
             this.btnGuardar.Text = "Guardar";
             this.btnGuardar.UseVisualStyleBackColor = true;
+            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
             // 
             // label7
             // 
@@ -601,16 +606,16 @@
             this.label7.TabIndex = 8;
             this.label7.Text = "Fecha";
             // 
-            // checkBox2
+            // chkRecordatorio
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(41, 330);
-            this.checkBox2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(97, 19);
-            this.checkBox2.TabIndex = 4;
-            this.checkBox2.Text = "Recordatorio";
-            this.checkBox2.UseVisualStyleBackColor = true;
+            this.chkRecordatorio.AutoSize = true;
+            this.chkRecordatorio.Location = new System.Drawing.Point(41, 330);
+            this.chkRecordatorio.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.chkRecordatorio.Name = "chkRecordatorio";
+            this.chkRecordatorio.Size = new System.Drawing.Size(97, 19);
+            this.chkRecordatorio.TabIndex = 4;
+            this.chkRecordatorio.Text = "Recordatorio";
+            this.chkRecordatorio.UseVisualStyleBackColor = true;
             // 
             // dtpFecha
             // 
@@ -632,6 +637,7 @@
             this.btnEliminar.TabIndex = 6;
             this.btnEliminar.Text = "Eliminar";
             this.btnEliminar.UseVisualStyleBackColor = true;
+            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
             // 
             // btnNuevo
             // 
@@ -643,6 +649,7 @@
             this.btnNuevo.TabIndex = 5;
             this.btnNuevo.Text = "Nuevo";
             this.btnNuevo.UseVisualStyleBackColor = true;
+            this.btnNuevo.Click += new System.EventHandler(this.btnNuevo_Click);
             // 
             // btnHabilitarEdicion
             // 
@@ -691,23 +698,23 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnGuardarConfiguracion;
-        private System.Windows.Forms.CheckBox chkRecordatorioGeneral;
+        private System.Windows.Forms.CheckBox chkNotificacionesNativas;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.DataGridView dgvDatos;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
         private System.Windows.Forms.Button btnRestaurarTodo;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox chkNotificacionCorreo;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.CheckBox chkRecordatorio;
         private System.Windows.Forms.DateTimePicker dtpFecha;
         private System.Windows.Forms.Button btnEliminar;
         private System.Windows.Forms.Button btnNuevo;
         private System.Windows.Forms.Button btnHabilitarEdicion;
         private System.Windows.Forms.Button btnGuardar;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtNombreDia;
         private System.Windows.Forms.ComboBox cmbMinuto;
         private System.Windows.Forms.ComboBox cmbHora;
         private System.Windows.Forms.ComboBox cmbFormatoHora;

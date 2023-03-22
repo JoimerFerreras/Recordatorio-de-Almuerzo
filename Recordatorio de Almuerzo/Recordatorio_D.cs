@@ -17,7 +17,7 @@ namespace Recordatorio_de_Almuerzo
         #endregion
 
         #region Consultas
-        public DataTable ListadoRecordatorios(bool TodosRecordatorios, DateTime FechaInicial, DateTime FechaFinal)
+        public DataTable ListadoRecordatorios(bool RangoFecha, DateTime FechaInicial, DateTime FechaFinal)
         {
             DataTable tabla = new DataTable();
             tabla.Clear();
@@ -39,7 +39,7 @@ namespace Recordatorio_de_Almuerzo
                                     REPLACE(REPLACE(Recordatorio , '1','SI'), '0','NO') AS Recordatorio
                                     FROM Recordatorios ";
 
-            if (TodosRecordatorios == false)
+            if (RangoFecha == true)
             {
                 comando.CommandText += $@"WHERE Fecha BETWEEN '{string.Format("{0:yyyy-MM-dd}", FechaInicial)} 00:00:00' AND '{string.Format("{0:yyyy-MM-dd}", FechaFinal)} 23:59:59'";
             }
