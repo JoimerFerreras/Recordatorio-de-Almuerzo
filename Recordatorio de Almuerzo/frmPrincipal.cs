@@ -14,6 +14,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
+using Microsoft.Win32;
 
 namespace Recordatorio_de_Almuerzo
 {
@@ -112,15 +113,16 @@ namespace Recordatorio_de_Almuerzo
             {
                 if (Id_Registro == "0")
                 {
+                    MessageBox.Show("No hay recordatorio seleccionado para eliminar.", "Recordatorio de Almuerzos", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                }
+                else
+                {
                     recordatorioObj.Eliminar(int.Parse(Id_Registro));
                     LimpiarCampos();
                     MessageBox.Show("El recordatorio ha sido eliminado.", "Recordatorio de Almuerzos", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     ConsutarRecordatorios(2, chkTodosRecordatorios.Checked, DateTime.Now, DateTime.Now);
-                }
-                else
-                {
-                    MessageBox.Show("No hay recordatorio seleccionado para eliminar.", "Recordatorio de Almuerzos", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception ex)
@@ -407,7 +409,6 @@ namespace Recordatorio_de_Almuerzo
                 }
                 e.CellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             }
-
 
             // Verificar si la fila actual es de tipo DataGridViewRow para evitar errores
             if (e.RowIndex >= 0 && dgv.Rows[e.RowIndex].DataBoundItem != null && dgv.Rows[e.RowIndex].DataBoundItem is DataRowView)
