@@ -66,11 +66,21 @@ namespace Recordatorio_de_Almuerzo
 
         private void button1_Click(object sender, EventArgs e)
         {
-            notifyIcon1.BalloonTipIcon = ToolTipIcon.Info;
-            notifyIcon1.BalloonTipTitle = "fasfasf";
-            notifyIcon1.BalloonTipText = "OK";
-            notifyIcon1.ShowBalloonTip(1000);
-            
+            // Establece la propiedad "Visible" del control NotifyIcon en "true"
+            notifyIcon1.Visible = true;
+
+            // Muestra un globo flotante de notificación con el título y el mensaje dados
+            notifyIcon1.ShowBalloonTip(5000, "Hola", "Recordatorio", ToolTipIcon.Info);
+
+            // Establece la propiedad "Visible" del control NotifyIcon en "false"
+            notifyIcon1.Visible = false;
+            //   notifyIcon1.Visible = true;
+        }
+
+        private void abrirPanelDeControlToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmPrincipal Form = new frmPrincipal();
+            Form.ShowDialog();
         }
     }
 }

@@ -60,46 +60,47 @@
             this.habilitarNotificacionesPorCorreoToolStripMenuItem,
             this.cerrarAplicaciónToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(262, 130);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(255, 120);
             // 
             // recordatorioDeAlmuerzosToolStripMenuItem
             // 
             this.recordatorioDeAlmuerzosToolStripMenuItem.BackColor = System.Drawing.Color.White;
             this.recordatorioDeAlmuerzosToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.recordatorioDeAlmuerzosToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.recordatorioDeAlmuerzosToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.recordatorioDeAlmuerzosToolStripMenuItem.Name = "recordatorioDeAlmuerzosToolStripMenuItem";
-            this.recordatorioDeAlmuerzosToolStripMenuItem.Size = new System.Drawing.Size(261, 24);
+            this.recordatorioDeAlmuerzosToolStripMenuItem.Size = new System.Drawing.Size(254, 22);
             this.recordatorioDeAlmuerzosToolStripMenuItem.Text = "Recordatorio de Almuerzos";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.BackColor = System.Drawing.Color.White;
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(258, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(251, 6);
             // 
             // abrirPanelDeControlToolStripMenuItem
             // 
             this.abrirPanelDeControlToolStripMenuItem.Name = "abrirPanelDeControlToolStripMenuItem";
-            this.abrirPanelDeControlToolStripMenuItem.Size = new System.Drawing.Size(261, 24);
+            this.abrirPanelDeControlToolStripMenuItem.Size = new System.Drawing.Size(254, 22);
             this.abrirPanelDeControlToolStripMenuItem.Text = "Abrir panel de control";
+            this.abrirPanelDeControlToolStripMenuItem.Click += new System.EventHandler(this.abrirPanelDeControlToolStripMenuItem_Click);
             // 
             // habilitarNotificacionesNativasToolStripMenuItem
             // 
             this.habilitarNotificacionesNativasToolStripMenuItem.BackColor = System.Drawing.Color.White;
             this.habilitarNotificacionesNativasToolStripMenuItem.Name = "habilitarNotificacionesNativasToolStripMenuItem";
-            this.habilitarNotificacionesNativasToolStripMenuItem.Size = new System.Drawing.Size(261, 24);
+            this.habilitarNotificacionesNativasToolStripMenuItem.Size = new System.Drawing.Size(254, 22);
             this.habilitarNotificacionesNativasToolStripMenuItem.Text = "Habilitar notificaciones nativas";
             // 
             // habilitarNotificacionesPorCorreoToolStripMenuItem
             // 
             this.habilitarNotificacionesPorCorreoToolStripMenuItem.Name = "habilitarNotificacionesPorCorreoToolStripMenuItem";
-            this.habilitarNotificacionesPorCorreoToolStripMenuItem.Size = new System.Drawing.Size(261, 24);
+            this.habilitarNotificacionesPorCorreoToolStripMenuItem.Size = new System.Drawing.Size(254, 22);
             this.habilitarNotificacionesPorCorreoToolStripMenuItem.Text = "Habilitar notificaciones por correo";
             // 
             // cerrarAplicaciónToolStripMenuItem
             // 
             this.cerrarAplicaciónToolStripMenuItem.Name = "cerrarAplicaciónToolStripMenuItem";
-            this.cerrarAplicaciónToolStripMenuItem.Size = new System.Drawing.Size(261, 24);
+            this.cerrarAplicaciónToolStripMenuItem.Size = new System.Drawing.Size(254, 22);
             this.cerrarAplicaciónToolStripMenuItem.Text = "Cerrar aplicación";
             // 
             // button1
@@ -115,8 +116,6 @@
             // notifyIcon1
             // 
             this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
-            this.notifyIcon1.Text = "notifyIcon1";
-            this.notifyIcon1.Visible = true;
             // 
             // notifyIconMenuContextual
             // 
