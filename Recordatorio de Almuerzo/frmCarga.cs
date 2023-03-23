@@ -135,6 +135,11 @@ namespace Recordatorio_de_Almuerzo
 
         private void abrirPanelDeControlToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            AbrirFormPrincipal();
+        }
+
+        async private void AbrirFormPrincipal()
+        {
             frmPrincipal FormPrincipal = new frmPrincipal();
             AddOwnedForm(FormPrincipal);
             FormPrincipal.Show();

@@ -76,6 +76,7 @@ namespace Recordatorio_de_Almuerzo
 
             dt = recordatorioObj.ListadoRecordatorios(TodosRecordatorios, FechaInicial, FechaFinal);
             dgvDatos.DataSource = dt;
+            Util.dtRecordatoriosPendientes = recordatorioObj.ListadoRecordatoriosPendientes();
         }
 
         private void Guardar(DateTime Fecha, string Hora, string Minutos, string FormatoHora, bool Recordatorio)
@@ -501,10 +502,21 @@ namespace Recordatorio_de_Almuerzo
                     dgv.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.LightGray;
                     dgv.Rows[e.RowIndex].DefaultCellStyle.SelectionBackColor = Color.Silver;
 
+                    dgv.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.Black;
+                    dgv.Rows[e.RowIndex].DefaultCellStyle.SelectionForeColor = Color.Black;
+
+                    Font sampleFont = new Font("Microsoft Tai Le", 9, FontStyle.Regular);
+                    dgv.Rows[e.RowIndex].DefaultCellStyle.Font = sampleFont;
+
                     if (dgv.Columns[e.ColumnIndex].Name == "Recordatorio")  //Si es la columna a evaluar
                     {
                         e.CellStyle.BackColor = Color.LightGray;
                         e.CellStyle.SelectionBackColor = Color.Silver;
+
+                        dgv.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.Black;
+                        dgv.Rows[e.RowIndex].DefaultCellStyle.SelectionForeColor = Color.Black;
+
+                        dgv.Rows[e.RowIndex].DefaultCellStyle.Font = sampleFont;
                     }
                 }
 

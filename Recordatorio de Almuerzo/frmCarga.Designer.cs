@@ -38,6 +38,7 @@
             this.habilitarNotificacionesPorCorreoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cerrarAplicaciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.notifyIconMenuContextual = new System.Windows.Forms.NotifyIcon(this.components);
+            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -105,6 +106,11 @@
             this.notifyIconMenuContextual.Text = "Recordatorio de Almuerzos";
             this.notifyIconMenuContextual.Visible = true;
             // 
+            // notifyIcon1
+            // 
+            this.notifyIcon1.Text = "notifyIcon1";
+            this.notifyIcon1.Visible = true;
+            // 
             // frmCarga
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -133,5 +139,6 @@
         public System.Windows.Forms.ToolStripMenuItem abrirPanelDeControlToolStripMenuItem;
         public System.Windows.Forms.ToolStripMenuItem habilitarNotificacionesNativasToolStripMenuItem;
         public System.Windows.Forms.ToolStripMenuItem habilitarNotificacionesPorCorreoToolStripMenuItem;
+        private System.Windows.Forms.NotifyIcon notifyIcon1;
     }
 }
