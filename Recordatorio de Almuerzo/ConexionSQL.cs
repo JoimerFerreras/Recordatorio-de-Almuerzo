@@ -13,10 +13,10 @@ namespace Recordatorio_de_Almuerzo
         #region Declaraciones
 
         //Conexion local Casa
-        private SqlConnection Conexion = new SqlConnection("Data Source=DESKTOP-3DD4AOQ\\SQLSERVER2022;Initial Catalog= Recordatorio_Almuerzos; Integrated Security=False;User ID= sa; Password= JEfc2707");
+        //private SqlConnection Conexion = new SqlConnection("Data Source=DESKTOP-3DD4AOQ\\SQLSERVER2022;Initial Catalog= Recordatorio_Almuerzos; Integrated Security=False;User ID= sa; Password= JEfc2707");
 
         //Conexion server en el trabajo
-        //private SqlConnection Conexion = new SqlConnection("Data Source=PTC-ANALAISTA\\PTCSQL;Initial Catalog= Recordatorio_Almuerzos; Integrated Security=False;User ID= sa; Password= spn");
+        private SqlConnection Conexion = new SqlConnection("Data Source=PTC-ANALAISTA\\PTCSQL;Initial Catalog= Recordatorio_Almuerzos; Integrated Security=False;User ID= sa; Password= spn");
 
         #endregion
 

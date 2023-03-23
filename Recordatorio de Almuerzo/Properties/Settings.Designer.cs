@@ -74,24 +74,24 @@ namespace Recordatorio_de_Almuerzo.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool EnviarCorreoRecordatorio {
-            get {
-                return ((bool)(this["EnviarCorreoRecordatorio"]));
-            }
-            set {
-                this["EnviarCorreoRecordatorio"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool NotificacionCorreo {
             get {
                 return ((bool)(this["NotificacionCorreo"]));
             }
             set {
                 this["NotificacionCorreo"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string PasswordCorreo {
+            get {
+                return ((string)(this["PasswordCorreo"]));
+            }
+            set {
+                this["PasswordCorreo"] = value;
             }
         }
     }

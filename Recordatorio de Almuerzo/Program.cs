@@ -16,7 +16,7 @@ namespace Recordatorio_de_Almuerzo
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmCarga());
+            Application.Run(new frmPrincipal());
         }
     }
 }

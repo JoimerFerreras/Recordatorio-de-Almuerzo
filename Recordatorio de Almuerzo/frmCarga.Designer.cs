@@ -30,7 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmCarga));
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.recordatorioDeAlmuerzosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -38,16 +37,9 @@
             this.habilitarNotificacionesNativasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.habilitarNotificacionesPorCorreoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cerrarAplicaciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.button1 = new System.Windows.Forms.Button();
-            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.notifyIconMenuContextual = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // timer1
-            // 
-            this.timer1.Interval = 10000;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // contextMenuStrip1
             // 
@@ -103,20 +95,6 @@
             this.cerrarAplicaciónToolStripMenuItem.Size = new System.Drawing.Size(254, 22);
             this.cerrarAplicaciónToolStripMenuItem.Text = "Cerrar aplicación";
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(244, 131);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // notifyIcon1
-            // 
-            this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
-            // 
             // notifyIconMenuContextual
             // 
             this.notifyIconMenuContextual.ContextMenuStrip = this.contextMenuStrip1;
@@ -130,8 +108,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(686, 323);
-            this.Controls.Add(this.button1);
+            this.ClientSize = new System.Drawing.Size(350, 104);
             this.MaximizeBox = false;
             this.Name = "frmCarga";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -143,8 +120,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem recordatorioDeAlmuerzosToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
@@ -152,8 +127,6 @@
         private System.Windows.Forms.ToolStripMenuItem habilitarNotificacionesNativasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem habilitarNotificacionesPorCorreoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cerrarAplicaciónToolStripMenuItem;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.NotifyIcon notifyIcon1;
         private System.Windows.Forms.NotifyIcon notifyIconMenuContextual;
     }
 }

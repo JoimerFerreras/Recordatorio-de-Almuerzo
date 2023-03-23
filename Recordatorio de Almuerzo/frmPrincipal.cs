@@ -24,6 +24,7 @@ namespace Recordatorio_de_Almuerzo
 
         DataTable dt = new DataTable();
         private Recordatorio_D recordatorioObj = new Recordatorio_D();
+        const string NombreFormulario = "Recordatorio de Almuerzos";
 
         bool Edicion = false;
         bool EditarRegistro = false;
@@ -103,7 +104,7 @@ namespace Recordatorio_de_Almuerzo
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ha ocurrido un error: \n\n" + ex.Message, "Recordatorio de Almuerzos - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Ha ocurrido un error: \n\n" + ex.Message, NombreFormulario + " - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -113,21 +114,21 @@ namespace Recordatorio_de_Almuerzo
             {
                 if (Id_Registro == "0")
                 {
-                    MessageBox.Show("No hay recordatorio seleccionado para eliminar.", "Recordatorio de Almuerzos", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("No hay recordatorio seleccionado para eliminar.", NombreFormulario, MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 }
                 else
                 {
                     recordatorioObj.Eliminar(int.Parse(Id_Registro));
                     LimpiarCampos();
-                    MessageBox.Show("El recordatorio ha sido eliminado.", "Recordatorio de Almuerzos", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("El recordatorio ha sido eliminado.", NombreFormulario, MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     ConsutarRecordatorios(2, chkTodosRecordatorios.Checked, DateTime.Now, DateTime.Now);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ha ocurrido un error: \n\n" + ex.Message, "Recordatorio de Almuerzos - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Ha ocurrido un error: \n\n" + ex.Message, NombreFormulario + " - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -197,7 +198,7 @@ namespace Recordatorio_de_Almuerzo
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ha ocurrido un error: \n\n" + ex.Message, "Recordatorio de Almuerzos - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Ha ocurrido un error: \n\n" + ex.Message, NombreFormulario + " - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -211,24 +212,65 @@ namespace Recordatorio_de_Almuerzo
 
         private void RestaurarTodo()
         {
-            // Restaura todo a los valors de fábrica
+            // Restaura toda la configuración a los valors de fábrica
             Settings.Default.Reset();
-            Settings.Default.Save();
+            CargarConfiguracion();
         }
 
         private void CargarConfiguracion()
         {
-            //dtDatos = Settings.Default.Datos;
-            //dgvDatos.DataSource = dtDatos;
-
-            //chkRecordatorioGeneral.Checked = Settings.Default.RecordatorioGeneral;
+            chkNotificacionesNativas.Checked = Settings.Default.NotificacionNativa;
+            chkNotificacionCorreo.Checked = Settings.Default.NotificacionCorreo;
+            txtCorreo.Text = Settings.Default.CorreoRecordatoio;
+            txtPasswordCorreo.Text = Settings.Default.PasswordCorreo;
         }
         private void GuardarConfiguracion()
         {
-            //Settings.Default.Datos = dtDatos;
-            //Settings.Default.RecordatorioGeneral = chkRecordatorioGeneral.Checked;
-            //Settings.Default.Datos = dtDatos;
-            //Settings.Default.Save();
+            if (ValidarConfiguracion() == true)
+            {
+                Settings.Default.NotificacionNativa = chkNotificacionesNativas.Checked;
+                Settings.Default.NotificacionCorreo = chkNotificacionCorreo.Checked;
+                Settings.Default.CorreoRecordatoio = txtCorreo.Text;
+                Settings.Default.PasswordCorreo = txtPasswordCorreo.Text;
+
+                Settings.Default.Save();
+                MessageBox.Show("Se han guardado la configuración", NombreFormulario, MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            }
+        }
+
+        private bool ValidarConfiguracion()
+        {
+            bool Validacion = false;
+
+            if (chkNotificacionCorreo.Checked == true)
+            {
+                if (txtCorreo.Text.Contains("@") || txtCorreo.Text.Contains("."))
+                {
+                    if (!(txtPasswordCorreo.Text.Length > 0))
+                    {
+                        MessageBox.Show("Ha marcado la opción para notificar por correo electrónico, el campo 'Contraseña no puede estar vacío' ", NombreFormulario, MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        Validacion = false;
+                    }
+                    else
+                    {
+                        Validacion = true;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Ha marcado la opción para notificar por correo electrónico, por favor, proporsione un correo electrónico válido", NombreFormulario, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Validacion = false;
+                }
+
+            }
+            else
+            {
+                Validacion = true;
+            }
+
+            return Validacion;
         }
 
         private void SeleccionarFila()
@@ -268,7 +310,7 @@ namespace Recordatorio_de_Almuerzo
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ha ocurrido un error: \n\n" + ex.Message, "Recordatorio de Almuerzos - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Ha ocurrido un error: \n\n" + ex.Message, NombreFormulario + " - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -327,11 +369,11 @@ namespace Recordatorio_de_Almuerzo
         private void frmPrincipal_Load(object sender, EventArgs e)
         {
             CheckForIllegalCrossThreadCalls = false;
+            CargarConfiguracion();
 
             LlenarComboboxs();
 
-            btnHabilitarEdicion.Text = "▶";
-            this.Size = new Size(939, 769);
+            DeshabilitarEdicion();
 
             dgvDatos.AutoGenerateColumns = false;
 
@@ -352,6 +394,7 @@ namespace Recordatorio_de_Almuerzo
             LimpiarCampos();
             cmbFormatoHora.SelectedValue = "PM";
 
+            // Establecer el rango de fecha de los datetime pickers de los filtros a una semana
             DateTime today = DateTime.Now;
             int delta = DayOfWeek.Sunday - today.DayOfWeek;
             DateTime FechaInicial = today.AddDays(delta);
@@ -359,6 +402,7 @@ namespace Recordatorio_de_Almuerzo
 
             dtpFechaInicial.Value = FechaInicial;
             dtpFechaFinal.Value = FechaFinal;
+            //--
 
             ConsutarRecordatorios(2, chkTodosRecordatorios.Checked, DateTime.Now, DateTime.Now);
             AsignarNombreDia();
@@ -444,13 +488,17 @@ namespace Recordatorio_de_Almuerzo
                     }
                 }
 
-                else if ((string.Format("{0:dd/MM/yyyy}", fecha) == string.Format("{0:dd/MM/yyyy}", DateTime.Now)) && (DateTime.Parse(string.Format("{0:hh:mm}", fecha)) >= DateTime.Parse(string.Format("{0:hh:mm}", DateTime.Now))))
+                else if ((string.Format("{0:dd/MM/yyyy}", fecha) == string.Format("{0:dd/MM/yyyy}", DateTime.Now)) && (DateTime.Parse(string.Format("{0:hh:mm tt}", fecha)) >= DateTime.Parse(string.Format("{0:hh:mm tt}", DateTime.Now))))
                 {
                     dgv.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.DodgerBlue;
+                    dgv.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.White;
+                    dgv.Rows[e.RowIndex].DefaultCellStyle.SelectionForeColor = Color.White;
+
+                    Font sampleFont = new Font("Microsoft Tai Le", 9, FontStyle.Bold);
+                    dgv.Rows[e.RowIndex].DefaultCellStyle.Font = sampleFont;
                     dgv.Rows[e.RowIndex].DefaultCellStyle.SelectionBackColor = Color.DeepSkyBlue;
                 }
             }
-
         }
 
         private void btnFiltrarHoy_Click(object sender, EventArgs e)
@@ -498,6 +546,20 @@ namespace Recordatorio_de_Almuerzo
         private void btnSumarUnDia_Click(object sender, EventArgs e)
         {
             dtpFecha.Value = dtpFecha.Value.AddDays(1);
+        }
+
+        private void chkNotificacionCorreo_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkNotificacionCorreo.Checked == true)
+            {
+                txtCorreo.ReadOnly = false;
+                txtPasswordCorreo.ReadOnly = false;
+            }
+            else
+            {
+                txtCorreo.ReadOnly = true;
+                txtPasswordCorreo.ReadOnly = true;
+            }
         }
     }
 }
