@@ -76,7 +76,7 @@ namespace Recordatorio_de_Almuerzo
         {
             comando.Connection = conexion.AbrirConexion();
             comando.CommandType = CommandType.Text;
-            comando.CommandText = $@"INSERT INTO Recordatorios(Fecha, Recordatorio) VALUES ('{string.Format("{0:yyyy-MM-dd HH:mm:ss}", Fecha)}', {Recordatorio});";
+            comando.CommandText = $@"INSERT INTO Recordatorios(Fecha, Recordatorio, Confirmacion) VALUES ('{string.Format("{0:yyyy-MM-dd HH:mm:ss}", Fecha)}', {Recordatorio}, 0);";
             leer = comando.ExecuteReader();
             comando.Parameters.Clear();
             conexion.CerrarConexion();
@@ -88,7 +88,8 @@ namespace Recordatorio_de_Almuerzo
             comando.CommandType = CommandType.Text;
             comando.CommandText = $@"UPDATE Recordatorios SET 
                                      Fecha = '{string.Format("{0:yyyy-MM-dd HH:mm:ss}", Fecha)}', 
-                                     Recordatorio =  {Recordatorio} 
+                                     Recordatorio =  {Recordatorio}, 
+                                     Confirmacion = 0 
                                      WHERE Id_Recordatorio = {Id_Recordatorio};";
             leer = comando.ExecuteReader();
             comando.Parameters.Clear();

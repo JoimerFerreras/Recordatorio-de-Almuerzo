@@ -19,6 +19,7 @@ namespace Recordatorio_de_Almuerzo
         #region DECLARACIONES
         Recordatorio_D recordatorioObj = new Recordatorio_D();
         List<NotifyIcon> notificaciones = new List<NotifyIcon>();
+        const string NombreFormulario = "Recordatorio de Almuerzos";
 
         #endregion
 
@@ -30,11 +31,6 @@ namespace Recordatorio_de_Almuerzo
 
 
         #region METODOS, PROCEDIMIENTOS Y FUNCIONES
-        private void AbrirFormPrincipal()
-        {
-            frmPrincipal Form = new frmPrincipal();
-            Form.Show();
-        }
 
         async Task CicloRecordatorio()
         {
@@ -44,16 +40,13 @@ namespace Recordatorio_de_Almuerzo
                 while (true)
                 {
                     // Aquí va el código que quieres ejecutar cada cierto tiempo
-                    string filtro = $@"Fecha LIKE '%{string.Format("{0:hh:mm tt}", DateTime.Now)}%'";
-                    DataRow[] resultados = Util.dtRecordatoriosPendientes.Select(filtro);
+                    DataRow[] resultados = Util.dtRecordatoriosPendientes.Select($@"Fecha = '{string.Format("{0:hh:mm tt}", DateTime.Now)}'");
 
                     if (resultados.Count() > 0)
                     {
-                        notificaciones.Clear();
-
                         for (int i = 0; i < resultados.Count(); i++)
                         {
-                            DataRow row = resultados[0];
+                            DataRow row = resultados[i];
                             string id = row["Id_Recordatorio"].ToString();
                             string recordatorio = row["Recordatorio"].ToString();
                             string confirmacion = row["Confirmacion"].ToString();
@@ -61,7 +54,7 @@ namespace Recordatorio_de_Almuerzo
 
                             recordatorioObj.ConfirmarRecordatorio(int.Parse(id));
 
-                            if (confirmacion == "0" && recordatorio == "1")
+                            if (confirmacion == "False" && recordatorio == "True")
                             {
                                 if (Settings.Default.NotificacionNativa == true)
                                 {
@@ -99,7 +92,7 @@ namespace Recordatorio_de_Almuerzo
             notificaciones[UltimaNotificacion].Visible = true;
 
             // Muestra un globo flotante de notificación con el título y el mensaje dados
-            notificaciones[UltimaNotificacion].ShowBalloonTip(3000, "Hola, tienes un almuerzo pautado para las " + HoraRecordatorio, "Según tus recordatorios registrados es hora de almorzar", ToolTipIcon.None);
+            notificaciones[UltimaNotificacion].ShowBalloonTip(5000, "Hola, tienes un almuerzo pautado para las " + HoraRecordatorio, "Según tus recordatorios registrados es hora de almorzar", ToolTipIcon.None);
 
             // Establece la propiedad "Visible" del control NotifyIcon en "false"
             notificaciones[UltimaNotificacion].Visible = false;
@@ -123,11 +116,6 @@ namespace Recordatorio_de_Almuerzo
             CicloRecordatorio();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            GenerarNotificacionNativa("2:00 PM");
-        }
-
         private void abrirPanelDeControlToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmPrincipal Form = new frmPrincipal();
@@ -135,5 +123,51 @@ namespace Recordatorio_de_Almuerzo
         }
 
         #endregion
+
+        private void habilitarNotificacionesNativasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (Settings.Default.NotificacionNativa == true)
+            {
+                Settings.Default.NotificacionNativa = false;
+                Settings.Default.Save();
+                habilitarNotificacionesNativasToolStripMenuItem.Text = "Habilitar notificaciones nativas";
+            }
+            else
+            {
+                Settings.Default.NotificacionNativa = true;
+                Settings.Default.Save();
+                habilitarNotificacionesNativasToolStripMenuItem.Text = "Deshabilitar notificaciones nativas";
+            }
+
+        }
+
+        private void habilitarNotificacionesPorCorreoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (Settings.Default.NotificacionCorreo == true)
+            {
+                Settings.Default.NotificacionCorreo = false;
+                Settings.Default.Save();
+                habilitarNotificacionesPorCorreoToolStripMenuItem.Text = "Habilitar notificaciones por correo";
+            }
+            else
+            {
+                if (Settings.Default.CorreoRecordatoio.Contains("@") && Settings.Default.CorreoRecordatoio.Contains(".") && Settings.Default.PasswordCorreo.Length > 0)
+                {
+                    Settings.Default.NotificacionCorreo = true;
+                    Settings.Default.Save();
+                    habilitarNotificacionesPorCorreoToolStripMenuItem.Text = "Deshabilitar notificaciones por correo";
+                }
+                else
+                {
+                    MessageBox.Show("Ha marcado la opción para notificar por correo electrónico, pero, las credenciales del correo electrónico no son válidas.\n\nCambie las credenciales en el apartado de 'Configuración' en el panel de control", NombreFormulario, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            
+        }
+
+        private void cerrarAplicaciónToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

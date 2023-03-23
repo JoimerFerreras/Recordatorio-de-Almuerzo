@@ -52,7 +52,7 @@
             this.habilitarNotificacionesPorCorreoToolStripMenuItem,
             this.cerrarAplicaciónToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(255, 120);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(255, 142);
             // 
             // recordatorioDeAlmuerzosToolStripMenuItem
             // 
@@ -82,18 +82,21 @@
             this.habilitarNotificacionesNativasToolStripMenuItem.Name = "habilitarNotificacionesNativasToolStripMenuItem";
             this.habilitarNotificacionesNativasToolStripMenuItem.Size = new System.Drawing.Size(254, 22);
             this.habilitarNotificacionesNativasToolStripMenuItem.Text = "Habilitar notificaciones nativas";
+            this.habilitarNotificacionesNativasToolStripMenuItem.Click += new System.EventHandler(this.habilitarNotificacionesNativasToolStripMenuItem_Click);
             // 
             // habilitarNotificacionesPorCorreoToolStripMenuItem
             // 
             this.habilitarNotificacionesPorCorreoToolStripMenuItem.Name = "habilitarNotificacionesPorCorreoToolStripMenuItem";
             this.habilitarNotificacionesPorCorreoToolStripMenuItem.Size = new System.Drawing.Size(254, 22);
             this.habilitarNotificacionesPorCorreoToolStripMenuItem.Text = "Habilitar notificaciones por correo";
+            this.habilitarNotificacionesPorCorreoToolStripMenuItem.Click += new System.EventHandler(this.habilitarNotificacionesPorCorreoToolStripMenuItem_Click);
             // 
             // cerrarAplicaciónToolStripMenuItem
             // 
             this.cerrarAplicaciónToolStripMenuItem.Name = "cerrarAplicaciónToolStripMenuItem";
             this.cerrarAplicaciónToolStripMenuItem.Size = new System.Drawing.Size(254, 22);
             this.cerrarAplicaciónToolStripMenuItem.Text = "Cerrar aplicación";
+            this.cerrarAplicaciónToolStripMenuItem.Click += new System.EventHandler(this.cerrarAplicaciónToolStripMenuItem_Click);
             // 
             // notifyIconMenuContextual
             // 
@@ -111,6 +114,8 @@
             this.ClientSize = new System.Drawing.Size(350, 104);
             this.MaximizeBox = false;
             this.Name = "frmCarga";
+            this.Opacity = 0D;
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Recordatorio de Almuerzos";
             this.Load += new System.EventHandler(this.frmCarga_Load);
