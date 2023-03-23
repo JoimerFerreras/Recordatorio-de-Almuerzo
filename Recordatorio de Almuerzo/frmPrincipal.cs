@@ -234,8 +234,28 @@ namespace Recordatorio_de_Almuerzo
                 Settings.Default.PasswordCorreo = txtPasswordCorreo.Text;
 
                 Settings.Default.Save();
-                MessageBox.Show("Se han guardado la configuración", NombreFormulario, MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+                // Renombramiento del text de los botones correspondientes del menu contextual del nitifyicon
+                frmCarga formularioPadre = (frmCarga)this.Owner;
+
+                if (Settings.Default.NotificacionNativa == false)
+                {
+                    formularioPadre.habilitarNotificacionesNativasToolStripMenuItem.Text = "Habilitar notificaciones nativas";
+                }
+                else
+                {
+                    formularioPadre.habilitarNotificacionesNativasToolStripMenuItem.Text = "Deshabilitar notificaciones nativas";
+                }
+
+                if (Settings.Default.NotificacionCorreo == false)
+                {
+                   formularioPadre.habilitarNotificacionesPorCorreoToolStripMenuItem.Text = "Habilitar notificaciones por correo";
+                }
+                else
+                {
+                    formularioPadre.habilitarNotificacionesPorCorreoToolStripMenuItem.Text = "Deshabilitar notificaciones por correo";
+                }
+                MessageBox.Show("Se ha guardado la configuración", NombreFormulario, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 

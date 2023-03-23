@@ -52,7 +52,7 @@
             this.habilitarNotificacionesPorCorreoToolStripMenuItem,
             this.cerrarAplicaciónToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(255, 142);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(255, 120);
             // 
             // recordatorioDeAlmuerzosToolStripMenuItem
             // 
@@ -125,13 +125,13 @@
         }
 
         #endregion
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem recordatorioDeAlmuerzosToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem abrirPanelDeControlToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem habilitarNotificacionesNativasToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem habilitarNotificacionesPorCorreoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cerrarAplicaciónToolStripMenuItem;
         private System.Windows.Forms.NotifyIcon notifyIconMenuContextual;
+        public System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        public System.Windows.Forms.ToolStripMenuItem abrirPanelDeControlToolStripMenuItem;
+        public System.Windows.Forms.ToolStripMenuItem habilitarNotificacionesNativasToolStripMenuItem;
+        public System.Windows.Forms.ToolStripMenuItem habilitarNotificacionesPorCorreoToolStripMenuItem;
     }
 }

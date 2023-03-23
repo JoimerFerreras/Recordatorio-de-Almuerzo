@@ -20,7 +20,6 @@ namespace Recordatorio_de_Almuerzo
         Recordatorio_D recordatorioObj = new Recordatorio_D();
         List<NotifyIcon> notificaciones = new List<NotifyIcon>();
         const string NombreFormulario = "Recordatorio de Almuerzos";
-
         #endregion
 
 
@@ -111,6 +110,24 @@ namespace Recordatorio_de_Almuerzo
             CheckForIllegalCrossThreadCalls = false;
             this.Visible = false;
 
+            if (Settings.Default.NotificacionNativa == false)
+            {
+                habilitarNotificacionesNativasToolStripMenuItem.Text = "Habilitar notificaciones nativas";
+            }
+            else
+            {
+                habilitarNotificacionesNativasToolStripMenuItem.Text = "Deshabilitar notificaciones nativas";
+            }
+
+            if (Settings.Default.NotificacionCorreo == false)
+            {
+                habilitarNotificacionesPorCorreoToolStripMenuItem.Text = "Habilitar notificaciones por correo";
+            }
+            else
+            {
+                habilitarNotificacionesPorCorreoToolStripMenuItem.Text = "Deshabilitar notificaciones por correo";
+            }
+
             Util.dtRecordatoriosPendientes = recordatorioObj.ListadoRecordatoriosPendientes();
 
             CicloRecordatorio();
@@ -118,8 +135,9 @@ namespace Recordatorio_de_Almuerzo
 
         private void abrirPanelDeControlToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmPrincipal Form = new frmPrincipal();
-            Form.ShowDialog();
+            frmPrincipal FormPrincipal = new frmPrincipal();
+            AddOwnedForm(FormPrincipal);
+            FormPrincipal.Show();
         }
 
         #endregion
