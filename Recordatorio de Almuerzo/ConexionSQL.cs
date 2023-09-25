@@ -17,7 +17,6 @@ namespace Recordatorio_de_Almuerzo
 
         //Conexion server en el trabajo
         private SqlConnection Conexion = new SqlConnection(Properties.Settings.Default.CadenaConexion);
-        
 
         #endregion
 
